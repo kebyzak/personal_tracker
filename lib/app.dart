@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:personal_tracker/features/habits/presentation/pages/habit_page.dart';
 import 'core/theme/app_theme.dart';
 import 'features/dashboard/presentation/dashboard_page.dart';
 import 'features/finance/presentation/finance_page.dart';
-import 'features/habits/presentation/habits_page.dart';
+import 'features/habits/presentation/bloc/habit_bloc.dart';
 import 'features/reading/presentation/pages/reading_page.dart';
 import 'features/sleep/presentation/sleep_page.dart';
 import 'core/di/service_locator.dart';
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<ReadingBloc>(
           create: (_) => sl<ReadingBloc>()..add(LoadAllBooks()),
+        ),
+        BlocProvider<HabitBloc>(
+          create: (_) => sl<HabitBloc>(),
         ),
         // Add other feature BLoCs here
       ],
@@ -44,11 +48,11 @@ class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 2; // Dashboard as center
 
   late final List<Widget> _pages = <Widget>[
-    HabitsPage(),
-    ReadingPage(),
-    DashboardPage(),
-    FinancePage(),
-    SleepPage(),
+    const HabitPage(),
+    const ReadingPage(),
+    const DashboardPage(),
+    const FinancePage(),
+    const SleepPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -94,7 +98,7 @@ class CustomBottomNavBar extends StatelessWidget {
             height: 60,
             decoration: BoxDecoration(
               color: backgroundColor,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black12,
                   blurRadius: 8,
@@ -153,7 +157,7 @@ class CustomBottomNavBar extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: currentIndex == 2 ? activeColor : inactiveColor,
                   shape: BoxShape.circle,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black26,
                       blurRadius: 8,
@@ -161,7 +165,7 @@ class CustomBottomNavBar extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.dashboard_outlined,
                   size: 32,
                   color: Colors.white,
@@ -222,4 +226,4 @@ class _NavBarIcon extends StatelessWidget {
       ),
     );
   }
-} 
+}
